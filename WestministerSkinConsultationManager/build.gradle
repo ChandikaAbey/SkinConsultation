@@ -8,6 +8,7 @@ mainClassName = 'uk.ac.westminster.Main'
 
 run {
     standardInput = System.in
+    dependsOn build
 }
 
 group = 'uk.ac.westminster'
