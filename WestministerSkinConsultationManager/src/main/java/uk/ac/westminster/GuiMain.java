@@ -5,29 +5,24 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+
+import static java.util.Collections.reverseOrder;
+import static java.util.Collections.sort;
 
 public class GuiMain implements ActionListener {
     private final JFrame mainFrame = new JFrame("WestMinister Skin Consultation");
-    private DataBank db = null;
-    private JTable table = null;
-    private boolean sortAscending = true;
-    private JRadioButton radAscending = new JRadioButton("Ascending");
-    private JRadioButton radDescending = new JRadioButton("Descending");
-    private List<Doctor> doctorList;
-    private DoctorTableModel tableModel;
+    private final DataBank db;
+    private final JRadioButton radAscending = new JRadioButton("Ascending");
+    private final JRadioButton radDescending = new JRadioButton("Descending");
 
     GuiMain(DataBank db) {
         this.db = db;
-        this.doctorList = db.doctorList;
-        Collections.sort(this.doctorList);
+        sort(this.db.doctorList);
         mainFrame.setSize(800, 600);
         mainFrame.setLayout(new GridLayout(2, 1, 5, 5));
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tableModel = new DoctorTableModel(this.doctorList);
-        table = new JTable(tableModel);
+        DoctorTableModel tableModel = new DoctorTableModel(this.db.doctorList);
+        JTable table = new JTable(tableModel);
         JTableHeader header = table.getTableHeader();
         header.setForeground(Color.WHITE);
         header.setBackground(Color.GRAY);
@@ -36,7 +31,7 @@ public class GuiMain implements ActionListener {
         mainFrame.add(scrollPane);
 
         JPanel controlPanel = new JPanel();
-        controlPanel.add(new JLabel("Sort Doctors Alphabetically"));
+        controlPanel.add(new JLabel("Sort Doctors Alphabetically: "));
         radAscending.addActionListener(this);
         radDescending.addActionListener(this);
         radAscending.setSelected(true);
@@ -55,14 +50,14 @@ public class GuiMain implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == "Ascending") {
+        if (e.getActionCommand().equals("Ascending")) {
             radAscending.setSelected(true);
             radDescending.setSelected(false);
-            Collections.sort(this.doctorList);
+            sort(db.doctorList);
         } else {
             radDescending.setSelected(true);
             radAscending.setSelected(false);
-            Collections.sort(this.doctorList, Collections.reverseOrder());
+            db.doctorList.sort(reverseOrder());
         }
         SwingUtilities.updateComponentTreeUI(mainFrame);
     }
