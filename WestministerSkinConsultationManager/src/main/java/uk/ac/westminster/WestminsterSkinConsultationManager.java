@@ -123,7 +123,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     public void deleteDoctor() {
         Utils.print("\n_______________Delete a Doctor_______________");
         listDoctors();
-        String input = Utils.getInput("\nEnter the medical license of the doctor to be delete: ");
+        String input = Utils.getInput("Enter the medical license of the doctor to be deleted: ");
         for (Doctor doc : db.doctorList) {
             if (doc.getMedicalLicenseNo().compareTo(input) == 0) {
                 db.doctorList.remove(doc);
