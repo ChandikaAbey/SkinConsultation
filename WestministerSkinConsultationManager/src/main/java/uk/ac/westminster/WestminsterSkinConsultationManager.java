@@ -10,6 +10,7 @@ import java.util.List;
 public class WestminsterSkinConsultationManager implements SkinConsultationManager {
 
     public DataBank db = null;
+    private static GuiMain gui = null;
 
     WestminsterSkinConsultationManager(boolean menuOn) {
         try {
@@ -18,25 +19,34 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             this.db = new DataBank();
         }
 
+        gui = new GuiMain(db);
+
         if (menuOn) {
             int input = 0;
 
             do {
                 input = displayMenu();
-                if (input == 5)
+                if (input == 6)
                     continue;
 
                 switch (input) {
                     case 1 -> addDoctor();
                     case 2 -> deleteDoctor();
                     case 3 -> listDoctors();
-                    default -> save();
+                    case 4 -> save();
+                    default -> OpenGUI();
                 }
 
-            } while (input != 5);
+            } while (input != 6);
             Utils.print("\nThank you for using our service.\n");
+            gui.closeGui();
             Utils.closeInput();
         }
+    }
+
+    private static void OpenGUI() {
+        Utils.print("Open GUI");
+        gui.openGui();
     }
 
     public int displayMenu() {
@@ -46,11 +56,12 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         Utils.print("\t\t2. Delete a Doctor");
         Utils.print("\t\t3. List Doctors");
         Utils.print("\t\t4. Save Data");
-        Utils.print("\t\t5. Quit\n");
+        Utils.print("\t\t5. Open GUI");
+        Utils.print("\t\t6. Quit\n");
         int inputChoice = 0;
         do {
             try {
-                inputChoice = Utils.getConsoleInput(1, 5);
+                inputChoice = Utils.getConsoleInput(1, 6);
                 if (inputChoice > 0) {
                     break;
                 }
