@@ -11,6 +11,7 @@ import static java.util.Collections.sort;
 
 public class GuiMain implements ActionListener {
     private final JFrame mainFrame = new JFrame("WestMinister Skin Consultation");
+    private final JTable table;
     private final DataBank db;
     private final JRadioButton radAscending = new JRadioButton("Ascending");
     private final JRadioButton radDescending = new JRadioButton("Descending");
@@ -22,7 +23,8 @@ public class GuiMain implements ActionListener {
         mainFrame.setLayout(new GridLayout(2, 1, 5, 5));
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         DoctorTableModel tableModel = new DoctorTableModel(this.db.doctorList);
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JTableHeader header = table.getTableHeader();
         header.setForeground(Color.WHITE);
         header.setBackground(Color.GRAY);
@@ -50,6 +52,8 @@ public class GuiMain implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        int selectedIndex = table.getSelectedRow();
+        Doctor selectedDoctor = db.doctorList.get(selectedIndex);
         if (e.getActionCommand().equals("Ascending")) {
             radAscending.setSelected(true);
             radDescending.setSelected(false);
@@ -58,6 +62,9 @@ public class GuiMain implements ActionListener {
             radDescending.setSelected(true);
             radAscending.setSelected(false);
             db.doctorList.sort(reverseOrder());
+        }
+        if (db.doctorList.contains(selectedDoctor)) {
+            table.setRowSelectionInterval(db.doctorList.indexOf(selectedDoctor), db.doctorList.indexOf(selectedDoctor));
         }
         SwingUtilities.updateComponentTreeUI(mainFrame);
     }
