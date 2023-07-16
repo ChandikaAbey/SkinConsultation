@@ -1,10 +1,6 @@
 package uk.ac.westminster;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiMain extends JFrame {
     private final JFrame mainFrame = new JFrame("WestMinister Skin Consultation");
