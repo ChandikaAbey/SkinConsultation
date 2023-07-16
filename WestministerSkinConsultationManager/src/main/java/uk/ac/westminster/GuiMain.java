@@ -53,7 +53,10 @@ public class GuiMain implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedIndex = table.getSelectedRow();
-        Doctor selectedDoctor = db.doctorList.get(selectedIndex);
+        Doctor selectedDoctor = null;
+        if (selectedIndex >= 0) {
+            selectedDoctor = db.doctorList.get(selectedIndex);
+        }
         if (e.getActionCommand().equals("Ascending")) {
             radAscending.setSelected(true);
             radDescending.setSelected(false);
