@@ -1,7 +1,6 @@
 package uk.ac.westminster;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorTableModel extends AbstractTableModel {
