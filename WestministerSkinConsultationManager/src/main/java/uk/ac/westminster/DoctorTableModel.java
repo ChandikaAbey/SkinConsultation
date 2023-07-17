@@ -4,8 +4,8 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class DoctorTableModel extends AbstractTableModel {
-    private String columnNames[] = {"Name", "Specialization", "Mobile Number"};
-    private List<Doctor> doctorList = null;
+    private final String[] columnNames = {"Name", "Specialization", "Mobile Number"};
+    private List<Doctor> doctorList;
     public DoctorTableModel(List<Doctor> doctorList) {
         this.doctorList = doctorList;
     }

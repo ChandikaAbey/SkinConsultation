@@ -33,13 +33,23 @@ public class GuiMain implements ActionListener {
         mainFrame.add(scrollPane);
 
         JPanel controlPanel = new JPanel();
-        controlPanel.add(new JLabel("Sort Doctors Alphabetically: "));
+        controlPanel.setLayout(new GridLayout(2, 1, 5, 5));
+        JPanel docTableControls = new JPanel();
+        JPanel consultationControls = new JPanel();
+        controlPanel.add(docTableControls);
+        controlPanel.add(consultationControls);
+
+        docTableControls.add(new JLabel("Sort Doctors Alphabetically: "));
         radAscending.addActionListener(this);
         radDescending.addActionListener(this);
         radAscending.setSelected(true);
-        controlPanel.add(radAscending);
-        controlPanel.add(radDescending);
+        docTableControls.add(radAscending);
+        docTableControls.add(radDescending);
         mainFrame.add(controlPanel);
+
+        JButton btnConsultations = new JButton("Consultations");
+        btnConsultations.addActionListener(this);
+        consultationControls.add(btnConsultations);
     }
 
     public void closeGui() {
@@ -61,10 +71,12 @@ public class GuiMain implements ActionListener {
             radAscending.setSelected(true);
             radDescending.setSelected(false);
             sort(db.doctorList);
-        } else {
+        } else if (e.getActionCommand().equals("Descending")) {
             radDescending.setSelected(true);
             radAscending.setSelected(false);
             db.doctorList.sort(reverseOrder());
+        } else if (e.getActionCommand().equals("Consultations")) {
+            System.out.println("book");
         }
         if (db.doctorList.contains(selectedDoctor)) {
             table.setRowSelectionInterval(db.doctorList.indexOf(selectedDoctor), db.doctorList.indexOf(selectedDoctor));

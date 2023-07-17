@@ -1,34 +1,46 @@
 package uk.ac.westminster;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 
-public class Consultation {
+public class Consultation implements Serializable {
 
     //Properties
-    private String date;
-    private String time;
+    private final int consultationNumber;
+    private final Doctor doctor;
+    private final Patient patient;
+    private LocalDate date;
+    private LocalTime time;
     private double cost;
     private String notes;
+    private double hours;
+
+    Consultation(int consultationNumber, Doctor doctor, Patient patient, LocalDate date, LocalTime time, double cost, double hours, String notes) {
+        this.consultationNumber = consultationNumber;
+        this.doctor = doctor;
+        this.patient = patient;
+        this.time = time;
+        this.date = date;
+        this.hours = hours;
+        this.notes = notes;
+    }
 
     //Property Methods
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(int year, int month, int dayOfMonth) {
-        LocalDate date = LocalDate.of(year, Month.of(month), dayOfMonth);
-        this.date = date.toString();
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(int hour, int minute) {
-        LocalTime time = LocalTime.of(hour, minute);
-        this.time = time.toString();
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public double getCost() {
@@ -47,4 +59,19 @@ public class Consultation {
         this.notes = notes;
     }
 
+    public double getHours() {
+        return hours;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public int getConsultationNumber() {
+        return consultationNumber;
+    }
 }
