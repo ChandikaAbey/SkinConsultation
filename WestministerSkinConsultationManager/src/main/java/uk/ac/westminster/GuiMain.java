@@ -15,6 +15,7 @@ public class GuiMain implements ActionListener {
     private final DataBank db;
     private final JRadioButton radAscending = new JRadioButton("Ascending");
     private final JRadioButton radDescending = new JRadioButton("Descending");
+    private GuiConsultations guiConsultations;
 
     GuiMain(DataBank db) {
         this.db = db;
@@ -50,14 +51,19 @@ public class GuiMain implements ActionListener {
         JButton btnConsultations = new JButton("Consultations");
         btnConsultations.addActionListener(this);
         consultationControls.add(btnConsultations);
+
+        this.guiConsultations = new GuiConsultations(this.db);
     }
 
     public void closeGui() {
+        guiConsultations.dispose();
         mainFrame.dispose();
     }
 
     public void openGui() {
         mainFrame.setVisible(true);
+        SwingUtilities.updateComponentTreeUI(mainFrame);
+        guiConsultations.refresh();
     }
 
     @Override
@@ -76,7 +82,7 @@ public class GuiMain implements ActionListener {
             radAscending.setSelected(false);
             db.doctorList.sort(reverseOrder());
         } else if (e.getActionCommand().equals("Consultations")) {
-            System.out.println("book");
+            guiConsultations.open();
         }
         if (db.doctorList.contains(selectedDoctor)) {
             table.setRowSelectionInterval(db.doctorList.indexOf(selectedDoctor), db.doctorList.indexOf(selectedDoctor));

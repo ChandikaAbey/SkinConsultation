@@ -129,6 +129,11 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 db.doctorList.remove(doc);
                 Utils.print("\nDeleted following doctor: \n");
                 Utils.printDoctorInfo(doc);
+                if (db.doctorList.size() != 0) {
+                    Utils.print(String.format("[info] %d %s left in the system.", db.doctorList.size(), db.doctorList.size() > 1 ? "Doctors are" : "Doctor is"));
+                } else {
+                    Utils.print("[info] No doctors are left in the system.");
+                }
                 return;
             }
         }
@@ -142,6 +147,11 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 db.doctorList.remove(doc);
                 Utils.print("\nDeleted following doctor: \n");
                 Utils.printDoctorInfo(doc);
+                if (db.doctorList.size() != 0) {
+                    Utils.print(String.format("[info] %d %s left in the system.", db.doctorList.size(), db.doctorList.size() > 1 ? "Doctors are" : "Doctor is"));
+                } else {
+                    Utils.print("[info] No doctors are left in the system.");
+                }
                 return true;
             }
         }

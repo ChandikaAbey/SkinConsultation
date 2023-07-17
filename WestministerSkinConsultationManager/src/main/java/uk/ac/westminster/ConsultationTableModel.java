@@ -6,7 +6,7 @@ import java.util.List;
 public class ConsultationTableModel extends AbstractTableModel {
 
     private List<Consultation> consultationList = null;
-    private final String[] columnNames = {"ID", "Doctor", "Specialization", "Patient", "Date", "Time", "Duration", "Rate", "Amount"};
+    private final String[] columnNames = {"Doctor", "Specialization", "Patient", "Date", "Time", "Duration", "Rate", "Amount"};
 
     ConsultationTableModel(List<Consultation> consultationList) {
         this.consultationList = consultationList;
@@ -27,14 +27,13 @@ public class ConsultationTableModel extends AbstractTableModel {
         Object temp;
         Consultation consultation = consultationList.get(rowIndex);
         switch (columnIndex) {
-            case 0 -> temp = consultation.getConsultationNumber();
-            case 1 -> temp = String.format("Dr. %s, %s", consultation.getDoctor().getSurName(), consultation.getDoctor().getName());
-            case 2 -> temp = consultation.getDoctor().getSpecialization().label;
-            case 3 -> temp = String.format("%s, %s", consultation.getPatient().getName(), consultation.getPatient().getSurName());
-            case 4 -> temp = consultation.getDate().toString();
-            case 5 -> temp = consultation.getTime().toString();
-            case 6 -> temp = consultation.getHours();
-            case 7 -> temp = consultation.getCost();
+            case 0 -> temp = String.format("Dr. %s, %s", consultation.getDoctor().getSurName(), consultation.getDoctor().getName());
+            case 1 -> temp = consultation.getDoctor().getSpecialization().label;
+            case 2 -> temp = String.format("%s %s", consultation.getPatient().getName(), consultation.getPatient().getSurName());
+            case 3 -> temp = consultation.getDate().toString();
+            case 4 -> temp = consultation.getTime().toString();
+            case 5 -> temp = consultation.getHours();
+            case 6 -> temp = consultation.getCost();
             default -> temp = consultation.getHours() * consultation.getCost();
         }
         return temp;
@@ -46,10 +45,7 @@ public class ConsultationTableModel extends AbstractTableModel {
 
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
-            case 0 -> {
-                return Integer.class;
-            }
-            case 6, 7, 8 -> {
+            case 5, 6, 7 -> {
                 return Double.class;
             }
             default -> {

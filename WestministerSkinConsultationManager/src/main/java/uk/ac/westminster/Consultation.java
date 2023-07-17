@@ -7,23 +7,22 @@ import java.time.LocalTime;
 public class Consultation implements Serializable {
 
     //Properties
-    private final int consultationNumber;
     private final Doctor doctor;
     private final Patient patient;
     private LocalDate date;
-    private LocalTime time;
+    private String time;
     private double cost;
     private String notes;
     private double hours;
 
-    Consultation(int consultationNumber, Doctor doctor, Patient patient, LocalDate date, LocalTime time, double cost, double hours, String notes) {
-        this.consultationNumber = consultationNumber;
+    Consultation( Doctor doctor, Patient patient, LocalDate date, String time, double cost, double hours, String notes) {
         this.doctor = doctor;
         this.patient = patient;
         this.time = time;
         this.date = date;
         this.hours = hours;
         this.notes = notes;
+        this.cost = cost;
     }
 
     //Property Methods
@@ -35,11 +34,11 @@ public class Consultation implements Serializable {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -69,9 +68,5 @@ public class Consultation implements Serializable {
 
     public Patient getPatient() {
         return patient;
-    }
-
-    public int getConsultationNumber() {
-        return consultationNumber;
     }
 }

@@ -41,4 +41,9 @@ public class Doctor extends Person implements Comparable<Object> {
         return this.getSurName().compareToIgnoreCase(doc.getSurName());
     }
 
+    @Override
+    public String toString() {
+        return String.format("Dr. %s, %s", this.getSurName(), this.getName());
+    }
+
 }
